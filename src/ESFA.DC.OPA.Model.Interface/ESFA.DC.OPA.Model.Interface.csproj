@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>DC</Authors>
+    <PackageLicenseUrl>https://github.com/SkillsFundingAgency/DC-OPA-Model/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/SkillsFundingAgency/DC-OPA-Model</PackageProjectUrl>
+    <Company>ESFA</Company>
+    <PackageTags>OPA Model Interface</PackageTags>
+    <Copyright>Copyright 2018</Copyright>
+    <Description>OPA Model Interface.</Description>
+  </PropertyGroup>
+
+</Project>
