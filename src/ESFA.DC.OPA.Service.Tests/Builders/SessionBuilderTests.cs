@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using ESFA.DC.OPA.Model;
 using ESFA.DC.OPA.Model.Interface;
 using ESFA.DC.OPA.Service.Builders;
@@ -498,28 +495,19 @@ namespace ESFA.DC.OPA.Service.Tests.Builders
 
         private Session CreateSessionTestSession(ISessionBuilder sessionBuilder)
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            Session session;
-            using (Stream())
+            using (var stream = Stream())
             {
-                session = sessionBuilder.CreateOPASession(Stream(), TestGlobalEntity());
+                return sessionBuilder.CreateOPASession(stream, TestGlobalEntity());
             }
-
-            return session;
         }
 
         private Session MapToOPATestSession()
         {
-            Engine testEngine = Engine.INSTANCE;
-            var assembly = Assembly.GetExecutingAssembly();
-            Session session;
-            using (Stream())
+            using (var stream = Stream())
             {
-                Oracle.Determinations.Engine.Rulebase testRulebase = testEngine.GetRulebase(new InputStreamAdapter(Stream()));
-                session = testEngine.CreateSession(testRulebase);
+                Oracle.Determinations.Engine.Rulebase testRulebase = Engine.INSTANCE.GetRulebase(new InputStreamAdapter(stream));
+                return Engine.INSTANCE.CreateSession(testRulebase);
             }
-
-            return session;
         }
 
         #endregion

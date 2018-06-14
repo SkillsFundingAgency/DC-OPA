@@ -483,18 +483,16 @@ namespace ESFA.DC.OPA.Service.Tests.Builders
         {
             IOPADataEntityBuilder createDataEntity = new OPADataEntityBuilder(new DateTime(2017, 8, 1));
             EntityInstance entityInstance = TestEntityInstance();
-            IDataEntity dataEntity = null;
 
-            return createDataEntity.CreateOPADataEntity(entityInstance, dataEntity);
+            return createDataEntity.CreateOPADataEntity(entityInstance, null);
         }
 
         private IDataEntity SetupMapToOpDataEntity()
         {
             var mapToDataEntity = new OPADataEntityBuilder(new DateTime(2017, 8, 1));
             EntityInstance entityInstance = TestEntityInstance();
-            IDataEntity dataEntity = null;
 
-            return mapToDataEntity.MapOpaToEntity(entityInstance, dataEntity);
+            return mapToDataEntity.MapOpaToEntity(entityInstance, null);
         }
 
         private List<IAttributeData> SetupMapOpaAttribute()
