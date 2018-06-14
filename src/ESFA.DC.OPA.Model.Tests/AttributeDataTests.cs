@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ESFA.DC.OPA.Model.Interface;
 using FluentAssertions;
 using Xunit;
@@ -11,463 +8,109 @@ namespace ESFA.DC.OPA.Model.Tests
 {
     public class AttributeDataTests
     {
-        #region AttributeData Tests
-
-        /// <summary>
-        /// Return AttributeData Item
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Does Exist"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_DoesExist()
+        [Fact]
+        public void Constructor()
         {
-            //ARRANGE
-            // Use Test Helpers
+            var name = "Name";
+            var value = "Value";
+            var attributeData = new AttributeData(name, value);
 
-            //ACT
-            IAttributeData attributeDataExists = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
+            var attributeDataResult = new AttributeData(attributeData.Name, attributeData.Value);
 
-            //ASSERT
-            attributeDataExists.Should().NotBeNull();
+            attributeDataResult.Should().BeEquivalentTo(attributeData);
+            attributeDataResult.Name.Should().Be(name);
+            attributeDataResult.Value.Should().Be(value);
         }
 
-        /// <summary>
-        /// Return AttributeData Item and check values
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Does Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_DoesMatch()
+        [Fact]
+        public void AddChangePoint()
         {
-            //ARRANGE
-            // Use Test Helpers
+            var attributeData = new AttributeData(null, null);
+            var temporalValueItem = new TemporalValueItem(new DateTime(2017, 1, 1), null, null);
 
-            //ACT
-            IAttributeData attributeDataDoesMatch = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
+            attributeData.AddChangepoint(temporalValueItem);
 
-            //ASSERT
-            attributeDataDoesMatch.Should().BeEquivalentTo(attributeDataDefault);
+            attributeData.Changepoints.Should().HaveCount(1);
+            attributeData.Changepoints.Should().Contain(temporalValueItem);
         }
 
-        /// <summary>
-        /// Return AttributeData Item and check values
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Does Not Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_DoesNotMatch()
+        [Fact]
+        public void AddChangePoint_Multiple()
         {
-            //ARRANGE
-            string attributeDataNotMatchNameString = "Attribute25";
+            var attributeData = new AttributeData(null, null);
+            var temporalValueItemOne = new TemporalValueItem(new DateTime(2017, 1, 1), null, null);
+            var temporalValueItemTwo = new TemporalValueItem(new DateTime(2017, 1, 1), null, null);
 
-            //ACT
-            IAttributeData attributeDataDoesNotMatch = new AttributeData(attributeDataNotMatchNameString, attributeDataDefaultValue);
+            attributeData.AddChangepoint(temporalValueItemOne);
+            attributeData.AddChangepoint(temporalValueItemTwo);
 
-            //ASSERT
-            attributeDataDoesNotMatch.Should().NotBeSameAs(attributeDataDefault);
+            attributeData.Changepoints.Should().HaveCount(2);
+            attributeData.Changepoints.Should().Contain(temporalValueItemOne);
+            attributeData.Changepoints.Should().Contain(temporalValueItemTwo);
         }
 
-        #endregion
-
-        #region AttributeData Name Tests
-
-        /// <summary>
-        /// Return AttributeData Name
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Name Does Exist"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Name_DoesExist()
+        [Fact]
+        public void ChangePoints_Default()
         {
-            //ARRANGE
-            // Use Test Helpers
-
-            //ACT
-            IAttributeData attributeDataNameExists = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-
-            //ASSERT
-            attributeDataNameExists.Name.Should().NotBeNull();
+            new AttributeData(null, null).Changepoints.Should().BeEmpty();
         }
 
-        /// <summary>
-        /// Return AttributeData Name and check value
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Name Does Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Name_DoesMatch()
+        [Fact]
+        public void AddChangePoints()
         {
-            //ARRANGE
-            // Use Test Helpers
+            var temporalValueItemOne = new TemporalValueItem(new DateTime(2017, 1, 1), null, null);
+            var temporalValueItemTwo = new TemporalValueItem(new DateTime(2017, 1, 1), null, null);
+            var temporalValueItemThree = new TemporalValueItem(new DateTime(2017, 1, 1), null, null);
 
-            //ACT
-            IAttributeData attributeDataNameMatch = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-
-            //ASSERT
-            attributeDataNameMatch.Name.Should().BeEquivalentTo(attributeDataDefaultName);
-        }
-
-        /// <summary>
-        /// Return AttributeData Name and check value
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Name Does Not Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Name_DoesNotMatch()
-        {
-            //ARRANGE
-            string attributeDataNameNotMatchString = "Attribute25";
-
-            //ACT
-            IAttributeData attributeDataNameNotMatch = new AttributeData(attributeDataNameNotMatchString, attributeDataDefaultValue);
-
-            //ASSERT
-            attributeDataNameNotMatch.Name.Should().NotBeSameAs(attributeDataDefaultName);
-        }
-
-        #endregion
-
-        #region AttributeData Value Tests
-
-        /// <summary>
-        /// Return AttributeData Value
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Value Does Exist"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Value_DoesExist()
-        {
-            //ARRANGE
-            // Use Test Helpers
-
-            //ACT
-            IAttributeData attributeDataValueExists = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-
-            //ASSERT
-            attributeDataValueExists.Value.Should().NotBeNull();
-        }
-
-        /// <summary>
-        /// Return AttributeData Value and check value
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Value Does Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Value_DoesMatch()
-        {
-            //ARRANGE
-            // Use Test Helpers
-
-            //ACT
-            IAttributeData attributeDataValueMatch = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-
-            //ASSERT
-            attributeDataValueMatch.Value.Should().BeEquivalentTo(attributeDataDefaultValue);
-        }
-
-        /// <summary>
-        /// Return AttributeData Value and check value
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Value Does Not Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Value_DoesNotMatch()
-        {
-            //ARRANGE
-            object attributeDataValueNotMatchObj = 8000;
-
-            //ACT
-            IAttributeData attributeDataValueNotMatch = new AttributeData(attributeDataDefaultName, attributeDataValueNotMatchObj);
-
-            //ASSERT
-            attributeDataValueNotMatch.Value.Should().NotBeSameAs(attributeDataDefaultValue);
-        }
-
-        #endregion
-
-        #region AttributeData ChangePoint Tests
-
-        /// <summary>
-        /// Return AttributeData Changepoints
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Changepoints Does Exist"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Changepoints_DoesExist()
-        {
-            //ARRANGE
-            // Use Test Helpers
-
-            //ACT
-            IAttributeData attributeDataChangepointsExists = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-            attributeDataChangepointsExists.AddChangepoint(new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, attributeCPDefaultType));
-
-            //ASSERT
-            attributeDataChangepointsExists.Changepoints.Should().NotBeNull();
-        }
-
-        /// <summary>
-        /// Return AttributeData Changepoints
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Changepoints Does Not Exist"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Changepoints_DoesNotExist()
-        {
-            //ARRANGE
-            // Use Test Helpers
-
-            //ACT
-            IAttributeData attributeDataChangepointsNotExists = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-
-            //ASSERT
-            attributeDataChangepointsNotExists.Changepoints.Should().BeNullOrEmpty();
-        }
-
-        /// <summary>
-        /// Return AttributeData Changepoints and check values
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Changepoints Does Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Changepoints_DoesMatch()
-        {
-            //ARRANGE
-            var changePointMatch = new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, attributeCPDefaultType);
-
-            //ACT
-            IAttributeData attributeDataChangepointsMatch = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-            attributeDataChangepointsMatch.Changepoints.Add(changePointMatch);
-
-            //ASSERT
-            attributeDataChangepointsMatch.Changepoints.Should().BeEquivalentTo(attributeTemporalValueItemDefault);
-        }
-
-        /// <summary>
-        /// Return AttributeData Changepoints and check values
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Changepoints Does Not Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Changepoints_DoesNotMatch()
-        {
-            //ARRANGE
-            var changePointNotMatch = new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, "IncorrectType");
-
-            //ACT
-            IAttributeData attributeDataChangepointsNotMatch = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-            attributeDataChangepointsNotMatch.Changepoints.Add(changePointNotMatch);
-
-            //ASSERT
-            attributeDataChangepointsNotMatch.Changepoints.First().Should().NotBeSameAs(attributeTemporalValueItemDefault);
-        }
-
-        /// <summary>
-        /// Return AttributeData Changepoints and count values
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - Changepoints Count Correct"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_Changepoints_CountCorrect()
-        {
-            //ARRANGE
-            IList<TemporalValueItem> changePointCountValues = new List<TemporalValueItem>
+            var changePointCountValues = new List<TemporalValueItem>
             {
-                new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, attributeCPDefaultType),
-                new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, attributeCPDefaultType),
-                new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, attributeCPDefaultType)
+                temporalValueItemOne,
+                temporalValueItemTwo,
+                temporalValueItemThree,
             };
 
-            //ACT
-            IAttributeData attributeDataChangepointsCountMatch = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-            attributeDataChangepointsCountMatch.AddChangepoints(changePointCountValues);
+            var attributeData = new AttributeData(null, null);
 
-            //ASSERT
-            attributeDataChangepointsCountMatch.Changepoints.Count.Should().Be(3);
+            attributeData.AddChangepoints(changePointCountValues);
+
+            attributeData.Changepoints.Should().HaveCount(3);
+            attributeData.Changepoints.Should().Contain(new[] { temporalValueItemOne, temporalValueItemTwo, temporalValueItemThree });
         }
 
-        #endregion
-
-        #region AttributeData IsTemporal Tests
-
-        /// <summary>
-        /// Return AttributeData IsTemporal True
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - IsTemporal True"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_IsTemporal_NullValueOneCP()
+        [Fact]
+        public void IsTemporal_True_NullValueOneCP()
         {
-            //ARRANGE
-            // Use Test Helpers
+            IAttributeData attributeDataIsTemporalTrue = new AttributeData(null, null);
 
-            //ACT
-            IAttributeData attributeDataIsTemporalTrue = new AttributeData(attributeDataDefaultName, null);
-            attributeDataIsTemporalTrue.AddChangepoint(new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, attributeCPDefaultType));
+            attributeDataIsTemporalTrue.AddChangepoint(new TemporalValueItem(new DateTime(2017, 1, 1), null, null));
 
-            //ASSERT
             attributeDataIsTemporalTrue.IsTemporal.Should().BeTrue();
         }
 
-        /// <summary>
-        /// Return AttributeData IsTemporal False
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - IsTemporal False NullValueZeroCP"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_IsTemporal_NullValueZeroCP()
+        [Fact]
+        public void IsTemporal_False_NullValueZeroCP()
         {
-            //ARRANGE
-            // Use Test Helpers
+            IAttributeData attributeData = new AttributeData(null, null);
 
-            //ACT
-            IAttributeData attributeDataIsTemporalFalseNullValueZeroCP = new AttributeData(attributeDataDefaultName, null);
-
-            //ASSERT
-            attributeDataIsTemporalFalseNullValueZeroCP.IsTemporal.Should().BeFalse();
+            attributeData.IsTemporal.Should().BeFalse();
         }
 
-        /// <summary>
-        /// Return AttributeData IsTemporal False
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - IsTemporal False ValueZeroCP"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_IsTemporal_ValueZeroCP()
+        [Fact]
+        public void IsTemporal_False_ValueZeroCP()
         {
-            //ARRANGE
-            // Use Test Helpers
+            var attributeData = new AttributeData(null, "Not Null");
 
-            //ACT
-            IAttributeData attributeDataIsTemporalFalseValueZeroCP = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-
-            //ASSERT
-            attributeDataIsTemporalFalseValueZeroCP.IsTemporal.Should().BeFalse();
+            attributeData.IsTemporal.Should().BeFalse();
         }
 
-        /// <summary>
-        /// Return AttributeData IsTemporal False
-        /// /// </summary>
-        [Fact(DisplayName = "AttributeData - IsTemporal False ValueAndCP"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_IsTemporal_ValueAndCP()
+        [Fact]
+        public void IsTemporal_False_ValueAndCP()
         {
-            //ARRANGE
-            // Use Test Helpers
+            IAttributeData attributeData = new AttributeData(null, "Not Null");
 
-            //ACT
-            IAttributeData attributeDataCIsTemporalValueAndCP = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-            attributeDataCIsTemporalValueAndCP.AddChangepoint(new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, attributeCPDefaultType));
+            attributeData.AddChangepoint(new TemporalValueItem(new DateTime(2017, 1, 1), null, null));
 
-            //ASSERT
-            attributeDataCIsTemporalValueAndCP.IsTemporal.Should().BeFalse();
+            attributeData.IsTemporal.Should().BeFalse();
         }
-
-        #endregion
-
-        #region AttributeData AddChangePoint Tests
-
-        /// <summary>
-        /// Return AttributeData ChangePoint and check value
-        /// </summary>
-        [Fact(DisplayName = "AttributeData - AddChangePoint Does Exist"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_AddChangePoint_DoesExist()
-        {
-            //ARRANGE
-            IAttributeData addChangePointExists = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-
-            //ACT
-            addChangePointExists.AddChangepoint(new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, attributeCPDefaultType));
-
-            //ASSERT
-            addChangePointExists.Changepoints.Should().NotBeNull();
-        }
-
-        /// <summary>
-        /// Return AttributeData ChangePoint and check value
-        /// </summary>
-        [Fact(DisplayName = "AttributeData - AddChangePoint Does Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_AddChangePoint_DoesMatch()
-        {
-            //ARRANGE
-            IAttributeData addChangePointMatch = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-
-            //ACT
-            addChangePointMatch.AddChangepoint(new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, attributeCPDefaultType));
-
-            //ASSERT
-            addChangePointMatch.Changepoints.Should().BeEquivalentTo(attributeTemporalValueItemDefault);
-        }
-
-        /// <summary>
-        /// Return AttributeData ChangePoint and check value
-        /// </summary>
-        [Fact(DisplayName = "AttributeData - AddChangePoint Does Not Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_AddChangePoint_DoesNotMatch()
-        {
-            //ARRANGE
-            IAttributeData addChangePointNotMatch = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-
-            //ACT
-            addChangePointNotMatch.AddChangepoint(new TemporalValueItem(attributeCPDefaultDate, attributeCPDefaultValue, "Type25"));
-
-            //ASSERT
-            addChangePointNotMatch.Changepoints.First().Should().NotBeSameAs(attributeTemporalValueItemDefault);
-        }
-
-        #endregion
-
-        #region AttributeData AddChangePoints Tests
-
-        /// <summary>
-        /// Return AttributeData ChangePoints and check value
-        /// </summary>
-        [Fact(DisplayName = "AttributeData - AddChangePoints Does Exist"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_AddChangePoints_DoesExist()
-        {
-            //ARRANGE
-            IAttributeData addChangePointsExists = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-
-            //ACT
-            addChangePointsExists.AddChangepoints(attributeTemporalValueItemDefaultList);
-
-            //ASSERT
-            addChangePointsExists.Changepoints.Should().NotBeNull();
-        }
-
-        /// <summary>
-        /// Return AttributeData ChangePoints and check value
-        /// </summary>
-        [Fact(DisplayName = "AttributeData - AddChangePoints Does Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_AddChangePoints_DoesMatch()
-        {
-            //ARRANGE
-            IAttributeData addChangePointsMatch = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-            IEnumerable<TemporalValueItem> addChangePointsMatchList =
-                new List<TemporalValueItem>()
-                {
-                    new TemporalValueItem(DateTime.Parse("2017-08-01"), 100, "Type1"),
-                    new TemporalValueItem(DateTime.Parse("2017-08-01"), 100, "Type2")
-                };
-
-            //ACT
-            addChangePointsMatch.AddChangepoints(addChangePointsMatchList);
-
-            //ASSERT
-            addChangePointsMatch.Changepoints.Should().BeEquivalentTo(attributeTemporalValueItemDefaultList);
-        }
-
-        /// <summary>
-        /// Return AttributeData ChangePoints and check value
-        /// </summary>
-        [Fact(DisplayName = "AttributeData - AddChangePoints Does Not Match"), Trait("OPA Model", "Unit")]
-        public void OPA_AttributeData_AddChangePoints_DoesNotMatch()
-        {
-            //ARRANGE
-            IAttributeData addChangePointsNotMatch = new AttributeData(attributeDataDefaultName, attributeDataDefaultValue);
-            IEnumerable<TemporalValueItem> addChangePointsNotMatchList =
-                new List<TemporalValueItem>()
-                {
-                    new TemporalValueItem(DateTime.Parse("2017-08-01"), 100, "Type15"),
-                    new TemporalValueItem(DateTime.Parse("2017-08-01"), 100, "Type25")
-                };
-
-            //ACT
-            addChangePointsNotMatch.AddChangepoints(addChangePointsNotMatchList);
-
-            //ASSERT
-            addChangePointsNotMatch.Changepoints.First().Should().NotBeSameAs(attributeTemporalValueItemDefault);
-        }
-
-        #endregion
-
-        #region Test Helpers
-
-        private readonly string attributeDataDefaultName = "Attribute1";
-        private readonly object attributeDataDefaultValue = 10;
-
-        private readonly IAttributeData attributeDataDefault = new AttributeData("Attribute1", 10);
-
-        private readonly DateTime attributeCPDefaultDate = DateTime.Parse("2017-08-01");
-        private readonly object attributeCPDefaultValue = 100;
-        private readonly string attributeCPDefaultType = "Type1";
-
-        private readonly ITemporalValueItem attributeTemporalValueItemDefault =
-            new TemporalValueItem(DateTime.Parse("2017-08-01"), 100, "Type1");
-
-        private readonly IEnumerable<TemporalValueItem> attributeTemporalValueItemDefaultList =
-            new List<TemporalValueItem>()
-            {
-                new TemporalValueItem(DateTime.Parse("2017-08-01"), 100, "Type1"),
-                new TemporalValueItem(DateTime.Parse("2017-08-01"), 100, "Type2")
-            };
-
-        #endregion
     }
 }
-

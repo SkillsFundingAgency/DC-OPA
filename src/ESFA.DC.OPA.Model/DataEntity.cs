@@ -1,19 +1,12 @@
-﻿using ESFA.DC.OPA.Model.Interface;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
+﻿using System.Collections.Generic;
+using ESFA.DC.OPA.Model.Interface;
 
 namespace ESFA.DC.OPA.Model
 {
     public class DataEntity : IDataEntity
     {
-        #region Constants
-
         private const string attributeLearnRefNumber = "LearnRefNumber";
         private const string entityNameGlobal = "global";
-
-        #endregion
 
         private readonly List<IDataEntity> _children;
 
@@ -25,8 +18,11 @@ namespace ESFA.DC.OPA.Model
         }
 
         public string EntityName { get; set; }
+
         public IDictionary<string, IAttributeData> Attributes { get; set; }
+
         public IList<IDataEntity> Children => _children;
+
         public IDataEntity Parent { get; set; }
 
         public string LearnRefNumber

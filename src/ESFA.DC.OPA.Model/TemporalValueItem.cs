@@ -1,7 +1,6 @@
 ﻿using System;
 using ESFA.DC.OPA.Model.Interface;
 
-
 namespace ESFA.DC.OPA.Model
 {
     public class TemporalValueItem : ITemporalValueItem
@@ -14,9 +13,9 @@ namespace ESFA.DC.OPA.Model
         }
 
         public DateTime ChangePoint { get; }
+
         public object Value { get; }
+
         public string Type { get; }
-        
     }
 }
-
