@@ -15,6 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.OPA.Service.Interfa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.OPA.Service.Tests", "ESFA.DC.OPA.Service.Tests\ESFA.DC.OPA.Service.Tests.csproj", "{DAB31798-17DD-4C50-9D0E-ADB431AB0CDD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.OPA.XSRC.Model", "ESFA.DC.OPA.XSRC.Model\ESFA.DC.OPA.XSRC.Model.csproj", "{C26C94D0-DC89-4281-931B-EBEF7ACCFFF9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESFA.DC.OPA.XSRC.Model.Interface", "ESFA.DC.OPA.XSRC.Model.Interface\ESFA.DC.OPA.XSRC.Model.Interface.csproj", "{6304C85A-DD9D-4C59-A82A-A5AEAA66F0F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESFA.DC.OPA.XSRC.Model.Tests", "ESFA.DC.OPA.XSRC.Model.Tests\ESFA.DC.OPA.XSRC.Model.Tests.csproj", "{2C486D66-E63E-4FDF-8047-279CE14F2A87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +51,18 @@ Global
 		{DAB31798-17DD-4C50-9D0E-ADB431AB0CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAB31798-17DD-4C50-9D0E-ADB431AB0CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAB31798-17DD-4C50-9D0E-ADB431AB0CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C26C94D0-DC89-4281-931B-EBEF7ACCFFF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26C94D0-DC89-4281-931B-EBEF7ACCFFF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26C94D0-DC89-4281-931B-EBEF7ACCFFF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26C94D0-DC89-4281-931B-EBEF7ACCFFF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6304C85A-DD9D-4C59-A82A-A5AEAA66F0F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6304C85A-DD9D-4C59-A82A-A5AEAA66F0F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6304C85A-DD9D-4C59-A82A-A5AEAA66F0F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6304C85A-DD9D-4C59-A82A-A5AEAA66F0F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C486D66-E63E-4FDF-8047-279CE14F2A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C486D66-E63E-4FDF-8047-279CE14F2A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C486D66-E63E-4FDF-8047-279CE14F2A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C486D66-E63E-4FDF-8047-279CE14F2A87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
